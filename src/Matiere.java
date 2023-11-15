@@ -8,6 +8,17 @@ public class Matiere {
     private int heure_CM;
     private float poidMatiere;
 
+    public Matiere(String labelMatiere, int heure_TD, int heure_TP, int heure_CM, float poidMatiere) {
+        this.labelMatiere = labelMatiere;
+        this.heure_TD = heure_TD;
+        this.heure_TP = heure_TP;
+        this.heure_CM = heure_CM;
+        this.poidMatiere = poidMatiere;
+    }
+
+    public Matiere() {
+    }
+
     public String getLabelMatiere() {
         return labelMatiere;
     }

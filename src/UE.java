@@ -14,6 +14,16 @@ public class UE {
 
     private List<Float> listCoeffEval;
 
+
+    public UE(String label, List<Matiere> listMatiere) {
+        this.label = label;
+        this.listMatiere = listMatiere;
+    }
+
+    public UE() {
+
+    }
+
     /**
      * Provide the label of the UE.
      * @return The label of the UE
