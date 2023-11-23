@@ -16,13 +16,13 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ParserH {
-    public void afficherExcel() throws IOException   {
+    public ArrayList<UE> parseurMaquette(String index) throws IOException   {
         //obtaining input bytes from a file
-        FileInputStream fis=new FileInputStream(new File("/Users/hugohovhannessian/Hugo/Etude_Sup/Polytech/DI4/S7/Projet/S5.xlsx"));
+        FileInputStream fis=new FileInputStream(new File("/Users/hugohovhannessian/Hugo/Etude_Sup/Polytech/DI4/S7/Projet/3A.xlsx"));
         //creating workbook instance that refers to .xls file
         XSSFWorkbook workbook = new XSSFWorkbook(fis);
 
-        XSSFSheet ws = workbook.getSheetAt(0);
+        XSSFSheet ws = workbook.getSheet(index);
 
         ArrayList<UE> listeUE = new ArrayList<UE>();
         ArrayList<Matiere> listeMatieres = new ArrayList<Matiere>();
@@ -34,13 +34,14 @@ public class ParserH {
         UE oldUE = new UE();
         oldUE.setLabel("");
         UE newUE = new UE();
+        int ECTS = 0;
+        int NewECTS = 0;
 
         boolean nouveau = false;
         boolean premier = true;
 
-        while (rowIterator.hasNext() && i<=47)
+        while (rowIterator.hasNext() && i<=49)
         {
-            //System.out.print(i + "|");
             Row row = rowIterator.next();
 
             String nomMatiere = null;
@@ -48,39 +49,41 @@ public class ParserH {
             int heureTD = 0;
             int heureTP = 0;
             int heureProjet = 0;
-            int CC = 0;
+            float CC = 0;
             String TypeCC = null;
-            int CT = 0;
+            float CT = 0;
             String TypeCT = null;
             float poid = 0;
+
+
 
             //For each row, iterate through all the columns
             Iterator<Cell> cellIterator = row.cellIterator();
 
             int j = 1;
-
             i++;
 
             while (cellIterator.hasNext())
             {
                 Cell cell = cellIterator.next();
-
-                if(i>=13){
-
+                if(i>4){
                     //Gestion des UE :
                     //Pour chaque ligne avec une valeur textuel en colonnes 2, on creer un UE
                     if(j == 2 && cell.getCellType() == Cell.CELL_TYPE_STRING){
                         String res = cell.getStringCellValue().substring(0, 2);
 
                         //Si le texte contient UE, on creer notre UE
-                        if(Objects.equals(res, "UE") && !premier){
+                        if((Objects.equals(res, "UE") || Objects.equals(res, "SO") || Objects.equals(res, "ST")) && !premier){
                             nouveau = true;
                             newUE.setLabel(cell.getStringCellValue());
                         }else{
-                            if(premier){
+                            if((Objects.equals(res, "UE") || Objects.equals(res, "SO") || Objects.equals(res, "ST")) && premier){
                                 premier = false;
                                 oldUE.setLabel(cell.getStringCellValue());
                             }
+                        }
+                        if(Objects.equals(res, "Op")){
+                            oldUE.setDescriptionsEU(cell.getStringCellValue());
                         }
                     }
 
@@ -113,7 +116,7 @@ public class ParserH {
                             break;
                         case 8:
                             if(cell.getCellType() == Cell.CELL_TYPE_NUMERIC){
-                                CC = (int)cell.getNumericCellValue();
+                                CC = (float)cell.getNumericCellValue();
                             }
                             break;
                         case 9:
@@ -123,7 +126,7 @@ public class ParserH {
                             break;
                         case 10:
                             if(cell.getCellType() == Cell.CELL_TYPE_NUMERIC){
-                                CT = (int)cell.getNumericCellValue();
+                                CT = (float)cell.getNumericCellValue();
                             }
                             break;
                         case 11:
@@ -136,17 +139,23 @@ public class ParserH {
                                 poid = (float)cell.getNumericCellValue()*100;
                             }
                             break;
+                        case 13:
+                            if(cell.getCellType() == Cell.CELL_TYPE_NUMERIC && nouveau){
+                                NewECTS = (int)cell.getNumericCellValue();
+                            }else{
+                                if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC){
+                                    ECTS = (int)cell.getNumericCellValue();
+                                }
+                            }
+                            break;
                     }
-
                 }
-
                 j++;
-
             }
 
             //Si on as pas de nom de matière, on l'ajoute à la liste des matières.
             if(nomMatiere != null){
-                Matiere newMatiere = new Matiere(nomMatiere,heureTD,heureTP,heureCours,poid);
+                Matiere newMatiere = new Matiere(nomMatiere,heureTD,heureTP,heureCours,CC, TypeCC, CT, TypeCT, poid);
                 listeMatieres.add(newMatiere);
             }
 
@@ -154,39 +163,32 @@ public class ParserH {
                 ArrayList<Matiere> listeMatieresUE = new ArrayList<Matiere>(listeMatieres);
                 listeMatieres.clear();
                 oldUE.setListMatiere(listeMatieresUE);
+                oldUE.setECTS(ECTS);
 
-                UE nouvelleUE = new UE(oldUE.getLabel(), oldUE.getListMatiere());
+                UE nouvelleUE = new UE(oldUE.getLabel(), oldUE.getECTS(), oldUE.getListMatiere());
+                if(oldUE.getDescriptionsEU() != null){
+                    nouvelleUE.setDescriptionsEU(oldUE.getDescriptionsEU());
+                    oldUE.setDescriptionsEU(null);
+                }
 
+                ECTS = NewECTS;
                 listeUE.add(nouvelleUE);
                 String label = newUE.getLabel();
                 oldUE.setLabel(label);
                 nouveau = false;
             }
 
-            if(i==47){
+            if(i==49){
                 ArrayList<Matiere> listeMatieresUE = new ArrayList<Matiere>(listeMatieres);
                 listeMatieres.clear();
                 oldUE.setListMatiere(listeMatieresUE);
-                UE nouvelleUE = new UE(oldUE.getLabel(), oldUE.getListMatiere());
+                oldUE.setECTS(ECTS);
+
+                UE nouvelleUE = new UE(oldUE.getLabel(), oldUE.getECTS(), oldUE.getListMatiere());
                 listeUE.add(nouvelleUE);
             }
-
         }
         fis.close();
-
-
-        //Afficher les UE et matière.
-        for(int u =0; u < listeUE.size(); u++) {
-            System.out.println("L'UE n°" + u + " est l'UE de :" + listeUE.get(u).getLabel());
-            ArrayList<Matiere> listeMatieresUE = new ArrayList<Matiere>(listeUE.get(u).getListMatiere());
-            for (int k = 0; k < listeMatieresUE.size(); k++) {
-                System.out.println("- " + listeMatieresUE.get(k).getLabelMatiere() +
-                        " | CM :" + listeMatieresUE.get(k).getHeure_CM() +
-                        " | TD :" + listeMatieresUE.get(k).getHeure_TD() +
-                        " | TP :" + listeMatieresUE.get(k).getHeure_TP() +
-                        " | Poid :" + listeMatieresUE.get(k).getPoidMatiere());
-            }
-
-        }
+        return listeUE;
     }
 }
