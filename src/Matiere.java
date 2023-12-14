@@ -3,10 +3,32 @@ import java.util.ArrayList;
 public class Matiere {
 
     private String labelMatiere;
-    private int heure_TD;
-    private int heure_TP;
-    private int heure_CM;
-    private float poidMatiere;
+    private double heureCM;
+    private double heureTD;
+    private double heureTP;
+    private double heureProjet;
+    private double poidsMatiere;
+    private String typeCC;
+    private String typeCT;
+    private double poidsCC;
+    private double poidsCT;
+
+    public Matiere(String labelMatiere, double heureCM, double heureTD, double heureTP, double heureProjet, double poidsCC, String typeCC, double poidsCT, String typeCT, double poidsMatiere) {
+        this.labelMatiere = labelMatiere;
+        this.heureCM = heureCM;
+        this.heureTD = heureTD;
+        this.heureTP = heureTP;
+        this.heureProjet = heureProjet;
+        this.poidsMatiere = poidsMatiere;
+        this.typeCC = typeCC;
+        this.typeCT = typeCT;
+        this.poidsCC = poidsCC;
+        this.poidsCT = poidsCT;
+    }
+
+    public Matiere(String labelMatiere){
+        this.labelMatiere = labelMatiere;
+    }
 
     public String getLabelMatiere() {
         return labelMatiere;
@@ -16,35 +38,70 @@ public class Matiere {
         this.labelMatiere = labelMatiere;
     }
 
-    public int getHeure_TD() {
-        return heure_TD;
+    public double getHeureCM() {
+        return heureCM;
     }
 
-    public void setHeure_TD(int heure_TD) {
-        this.heure_TD = heure_TD;
+    public void setHeureCM(int heureCM) {
+        this.heureCM = heureCM;
     }
 
-    public int getHeure_TP() {
-        return heure_TP;
+    public double getHeureTD() {
+        return heureTD;
     }
 
-    public void setHeure_TP(int heure_TP) {
-        this.heure_TP = heure_TP;
+    public void setHeureTD(int heureTD) {
+        this.heureTD = heureTD;
     }
 
-    public int getHeure_CM() {
-        return heure_CM;
+    public double getHeureTP() {
+        return heureTP;
     }
 
-    public void setHeure_CM(int heure_CM) {
-        this.heure_CM = heure_CM;
+    public void setHeureTP(int heureTP) {
+        this.heureTP = heureTP;
     }
 
-    public float getPoidMatiere() {
-        return poidMatiere;
+    public double getHeureProjet() { return heureProjet;}
+
+    public void setHeureProjet(int heureProjet) { this.heureProjet = heureProjet;}
+    public double getPoidsMatiere() {
+        return poidsMatiere;
     }
 
-    public void setPoidMatiere(float poidMatiere) {
-        this.poidMatiere = poidMatiere;
+    public void setPoidsMatiere(double poidsMatiere) {
+        this.poidsMatiere = poidsMatiere;
     }
+
+    public void setTypeCC(String typeCC) {
+        this.typeCC = typeCC;
+    }
+
+    public String getTypeCT() {
+        return typeCT;
+    }
+
+    public void setTypeCT(String typeCT) {
+        this.typeCT = typeCT;
+    }
+    public String getTypeCC() {
+        return typeCC;
+    }
+    public double getPoidsCC() {
+        return poidsCC;
+    }
+
+    public void setPoidsCC(double poidsCC) {
+        this.poidsCC = poidsCC;
+    }
+
+    public double getPoidsCT() {
+        return poidsCT;
+    }
+
+    public void setPoidsCT(double poidsCT) {
+        this.poidsCT = poidsCT;
+    }
+
+
 }

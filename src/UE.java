@@ -5,14 +5,20 @@ public class UE {
 
     private String label;
     private int nombreMatiere;
-    private int ECTS;
+    private double ECTS;
     private List<Matiere> listMatiere;
 
-    private List<String> listEvaluation;
 
-    private List<String> listTypeEval;
+    public UE(String label, int nombreMatiere, double ECTS, List<Matiere> listMatiere) {
+        this.label = label;
+        this.nombreMatiere = nombreMatiere;
+        this.ECTS = ECTS;
+        this.listMatiere = listMatiere;
+    }
 
-    private List<Float> listCoeffEval;
+    public UE(String label) {
+        this.label = label;
+    }
 
     /**
      * Provide the label of the UE.
@@ -50,7 +56,7 @@ public class UE {
      * Provide the amount of ECTS in the UE (european norm)
      * @return The amount of ECTS in the UE
      */
-    public int getECTS() {
+    public double getECTS() {
         return ECTS;
     }
 
@@ -58,7 +64,7 @@ public class UE {
      * Modify the amount of ECTS in the UE
      * @param ECTS The new amount of ECTS
      */
-    public void setECTS(int ECTS) {
+    public void setECTS(double ECTS) {
         this.ECTS = ECTS;
     }
 
@@ -70,27 +76,10 @@ public class UE {
         this.listMatiere = listMatiere;
     }
 
-    public List<String> getListEvaluation() {
-        return listEvaluation;
+    public void addMatiere(String labelMatiere){
+        Matiere nouvelleMatiere = new Matiere(labelMatiere);
+        listMatiere.add(nouvelleMatiere);
     }
 
-    public void setListEvaluation(List<String> listEvaluation) {
-        this.listEvaluation = listEvaluation;
-    }
 
-    public List<String> getListTypeEval() {
-        return listTypeEval;
-    }
-
-    public void setListTypeEval(List<String> listTypeEval) {
-        this.listTypeEval = listTypeEval;
-    }
-
-    public List<Float> getListCoeffEval() {
-        return listCoeffEval;
-    }
-
-    public void setListCoeffEval(List<Float> listCoeffEval) {
-        this.listCoeffEval = listCoeffEval;
-    }
 }
