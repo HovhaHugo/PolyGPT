@@ -1,16 +1,11 @@
-import java.awt.*;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import java.io.FileInputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Objects;
 
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -19,27 +14,26 @@ public class ParserH {
     public ArrayList<UE> parseurMaquette(String index) throws IOException   {
         //obtaining input bytes from a file
         FileInputStream fis=new FileInputStream(new File("/Users/hugohovhannessian/Hugo/Etude_Sup/Polytech/DI4/S7/Projet/3A.xlsx"));
+
         //creating workbook instance that refers to .xls file
         XSSFWorkbook workbook = new XSSFWorkbook(fis);
 
+        //On récupére la feuille de calcules à l'index indiquer.
         XSSFSheet ws = workbook.getSheet(index);
 
-        ArrayList<UE> listeUE = new ArrayList<UE>();
-        ArrayList<Matiere> listeMatieres = new ArrayList<Matiere>();
-
-
+        //Initialisation des variables pour la suite de la fonction.
+        ArrayList<UE> listeUE = new ArrayList<>();
+        ArrayList<Matiere> listeMatieres = new ArrayList<>();
         Iterator<Row> rowIterator = ws.iterator();
         int i = 1;
-
         UE oldUE = new UE();
         oldUE.setLabel("");
         UE newUE = new UE();
         int ECTS = 0;
         int NewECTS = 0;
-
         boolean nouveau = false;
         boolean premier = true;
-
+        
         while (rowIterator.hasNext() && i<=49)
         {
             Row row = rowIterator.next();
@@ -54,8 +48,6 @@ public class ParserH {
             float CT = 0;
             String TypeCT = null;
             float poid = 0;
-
-
 
             //For each row, iterate through all the columns
             Iterator<Cell> cellIterator = row.cellIterator();

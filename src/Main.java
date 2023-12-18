@@ -11,12 +11,11 @@ public class Main {
         S5.afficherSemestre();
         System.out.println();
         System.out.println("--------------------------------------------------");
-        System.out.println("Changement de semstre : ");
+        System.out.println("Changement de semestre : ");
         ArrayList<UE> listeUES6 = parser.parseurMaquette("S8");
         Semestre S6 = new Semestre();
         S6.setUniteEnseignement(listeUES6);
         S6.afficherSemestre();
         Annee annee3 = new Annee();
-
     }
 }
