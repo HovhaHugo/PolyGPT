@@ -11,17 +11,6 @@ import java.util.Map;
 
 public class ParseurC {
 
-    // Méthode utilitaire pour obtenir la valeur d'une cellule numérique
-    private double getCellValue(XSSFCell cell) {
-        return cell != null && cell.getCellType() == CellType.NUMERIC ? cell.getNumericCellValue() : 0;
-    }
-
-    // Méthode utilitaire pour obtenir la valeur d'une cellule sous forme de chaîne
-    private String getCellStringValue(XSSFCell cell) {
-        return cell != null && cell.getCellType() == CellType.STRING ? cell.getStringCellValue() : null;
-    }
-
-
     public void parser() {
 
         List<UE> unitesEnseignements = new ArrayList<>(); //Liste pour stocker les objets UE
