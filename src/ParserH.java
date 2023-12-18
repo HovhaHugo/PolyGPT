@@ -2,9 +2,13 @@ import java.io.File;
 import java.io.IOException;
 
 import java.io.FileInputStream;
+import java.sql.Time;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Objects;
+import java.util.Timer;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -12,6 +16,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ParserH {
     public ArrayList<UE> parseurMaquette(String index) throws IOException   {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+
         //obtaining input bytes from a file
         FileInputStream fis=new FileInputStream(new File("/Users/hugohovhannessian/Hugo/Etude_Sup/Polytech/DI4/S7/Projet/3A.xlsx"));
 
@@ -21,11 +28,11 @@ public class ParserH {
         //On récupére la feuille de calcules à l'index indiquer.
         XSSFSheet ws = workbook.getSheet(index);
 
-        //Initialisation des variables pour la suite de la fonction.
-        ArrayList<UE> listeUE = new ArrayList<>();
-        ArrayList<Matiere> listeMatieres = new ArrayList<>();
+        ArrayList<UE> listeUE = new ArrayList<UE>();
+        ArrayList<Matiere> listeMatieres = new ArrayList<Matiere>();
         Iterator<Row> rowIterator = ws.iterator();
         int i = 1;
+
         UE oldUE = new UE();
         oldUE.setLabel("");
         UE newUE = new UE();
@@ -33,7 +40,7 @@ public class ParserH {
         int NewECTS = 0;
         boolean nouveau = false;
         boolean premier = true;
-        
+
         while (rowIterator.hasNext() && i<=49)
         {
             Row row = rowIterator.next();
@@ -181,6 +188,8 @@ public class ParserH {
             }
         }
         fis.close();
+        LocalDateTime then = LocalDateTime.now();
+        System.out.println(then.getNano() - now.getNano());
         return listeUE;
     }
 }
