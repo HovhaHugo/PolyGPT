@@ -5,7 +5,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) throws IOException {
         ParserH parser = new ParserH();
-        ArrayList<UE> listeUE = parser.parseurMaquette("S7");
+        ArrayList<UE> listeUE = parser.parseurMaquette("S6");
         Semestre S5 = new Semestre();
         S5.setUniteEnseignement(listeUE);
         S5.afficherSemestre();

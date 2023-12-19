@@ -16,8 +16,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ParserH {
     public ArrayList<UE> parseurMaquette(String index) throws IOException   {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
+        float now = System.nanoTime();
 
         //obtaining input bytes from a file
         FileInputStream fis=new FileInputStream(new File("/Users/hugohovhannessian/Hugo/Etude_Sup/Polytech/DI4/S7/Projet/3A.xlsx"));
@@ -67,7 +66,6 @@ public class ParserH {
                 Cell cell = cellIterator.next();
                 if(i>4){
                     //Gestion des UE :
-                    //Pour chaque ligne avec une valeur textuel en colonnes 2, on creer un UE
                     if(j == 2 && cell.getCellType() == Cell.CELL_TYPE_STRING){
                         String res = cell.getStringCellValue().substring(0, 2);
 
@@ -188,8 +186,8 @@ public class ParserH {
             }
         }
         fis.close();
-        LocalDateTime then = LocalDateTime.now();
-        System.out.println(then.getNano() - now.getNano());
+        float then = System.nanoTime();
+        System.out.println(then - now);
         return listeUE;
     }
 }
