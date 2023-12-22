@@ -1,21 +1,107 @@
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        Scanner sc = new Scanner(System.in);
+
+        //Informations sur le fichier
+        System.out.println("\n --------------------------------------------------");
+        System.out.println("Bienvenue dans Descpryt'Excel, veuillez saisir le chemin d'accès à la maquette : ");
+        String path = sc.nextLine();
+        System.out.println("Veuillez aussi saisir le nom du fichier : ");
+        String name = sc.nextLine();
+        System.out.println("Merci bien, nous allon maintenant traduire votre fichier.");
+
+        //Informations sur les années
+        System.out.println("\n --------------------------------------------------");
+        System.out.println("Le fichier concernes combien d'année ? [1,2,3]: ");
+        int years = sc.nextInt();
+        String schollyear;
+        boolean valide = false;
+        while(valide == false){
+            Scanner scan = new Scanner(System.in);
+            switch (years){
+                case 1:
+                    valide = true;
+                    System.out.println("Quelle est l'année concerncer ? [3A, 4A, 5A]");
+                    schollyear = scan.nextLine();
+                    switch (schollyear){
+                        case "3A","4A", "5A":
+                            parsingAnnee(path, name, schollyear);
+                            break;
+                        default:
+                            System.out.println("L'année renseigner n'est pas dans les années pris en charge, merci de ressaisir l'année concerner et réessayer");
+                            System.out.println("Le fichier concernes l'année ? [3A,4A,5A]: ");
+                            years = scan.nextInt();
+                            break;
+                    }
+                    break;
+                case 2:
+                    valide = true;
+                    System.out.println("Quelle est la 1er année concerncer ? [3A, 4A, 5A]");
+                    schollyear = scan.nextLine();
+                    parsingAnnee(path, name, schollyear);
+                    System.out.println("Quelle est la 2eme année concerncer ? [3A, 4A, 5A]");
+                    schollyear = scan.nextLine();
+                    parsingAnnee(path, name, schollyear);
+                    System.out.println("Merci bien, nous allon maintenant traduire votre fichier.");
+                    break;
+                case 3:
+                    valide = true;
+                    System.out.println("Merci bien, nous allon maintenant traduire votre fichier.");
+                    parsingAnnee(path, name, "3A");
+                    parsingAnnee(path, name, "4A");
+                    parsingAnnee(path, name, "5A");
+                    break;
+                default:
+                    System.out.println("Chiffre en dehors de la demande, merci de ressaisir un chiffre entre 1 et 3");
+                    System.out.println("Le fichier concernes combien d'année ? [1,2,3]: ");
+                    years = scan.nextInt();
+                    break;
+            }
+        }
+    }
+
+    public static void parsingAnnee(String path, String name, String annee) throws IOException {
+        //Creation des variables
         ParserH parser = new ParserH();
-        ArrayList<UE> listeUE = parser.parseurMaquette("S6");
-        Semestre S5 = new Semestre();
-        S5.setUniteEnseignement(listeUE);
-        S5.afficherSemestre();
-        System.out.println();
-        System.out.println("--------------------------------------------------");
-        System.out.println("Changement de semestre : ");
-        ArrayList<UE> listeUES6 = parser.parseurMaquette("S8");
-        Semestre S6 = new Semestre();
-        S6.setUniteEnseignement(listeUES6);
-        S6.afficherSemestre();
-        Annee annee3 = new Annee();
+        ArrayList<UE> listeUES1 ;
+        ArrayList<UE> listeUES2 ;
+        Semestre semestre1;
+        Semestre semestre2;
+        String str1 = null;
+        String str2 = null;
+
+        switch(annee){
+            case "3A":
+                str1 = "S5";
+                str2 = "S6";
+                break;
+            case "4A":
+                str1 = "S7";
+                str2 = "S8";
+                break;
+            case "5A":
+                str1 = "S9";
+                str2 = "S10";
+                break;
+        }
+        
+        System.out.println("\n --------------------------------------------------");
+        System.out.println("Année : "+annee);
+        listeUES1 = parser.parseurMaquette(path, name,str1);
+        semestre1 = new Semestre();
+        semestre1.setUniteEnseignement(listeUES1);
+        semestre1.afficherSemestre();
+
+        System.out.println("\n --------------------------------------------------");
+        System.out.println("2ème semestre : ");
+        listeUES2 = parser.parseurMaquette(path, name,str2);
+        semestre2 = new Semestre();
+        semestre2.setUniteEnseignement(listeUES2);
+        semestre2.afficherSemestre();
+        System.out.println("\n --------------------------------------------------\n");
     }
 }

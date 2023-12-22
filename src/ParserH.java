@@ -11,15 +11,16 @@ import java.util.Objects;
 import java.util.Timer;
 
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ParserH {
-    public ArrayList<UE> parseurMaquette(String index) throws IOException   {
+    public ArrayList<UE> parseurMaquette(String path, String name, String index) throws IOException   {
         float now = System.nanoTime();
 
         //obtaining input bytes from a file
-        FileInputStream fis=new FileInputStream(new File("/Users/hugohovhannessian/Hugo/Etude_Sup/Polytech/DI4/S7/Projet/3A.xlsx"));
+        FileInputStream fis=new FileInputStream(new File(path+"/"+name+".xlsx"));
 
         //creating workbook instance that refers to .xls file
         XSSFWorkbook workbook = new XSSFWorkbook(fis);
@@ -40,9 +41,10 @@ public class ParserH {
         boolean nouveau = false;
         boolean premier = true;
 
-        while (rowIterator.hasNext() && i<=49)
+        while (i <= ws.getLastRowNum())
         {
-            Row row = rowIterator.next();
+            XSSFRow row = ws.getRow(i);
+            //Row row = rowIterator.next();
 
             String nomMatiere = null;
             int heureCours = 0;
@@ -83,7 +85,6 @@ public class ParserH {
                             oldUE.setDescriptionsEU(cell.getStringCellValue());
                         }
                     }
-
                     //Gestion des matières
                     switch(j){
                         case 3:
@@ -146,6 +147,7 @@ public class ParserH {
                             }
                             break;
                     }
+
                 }
                 j++;
             }
@@ -175,7 +177,7 @@ public class ParserH {
                 nouveau = false;
             }
 
-            if(i==49){
+            if(i==ws.getLastRowNum()){
                 ArrayList<Matiere> listeMatieresUE = new ArrayList<Matiere>(listeMatieres);
                 listeMatieres.clear();
                 oldUE.setListMatiere(listeMatieresUE);
