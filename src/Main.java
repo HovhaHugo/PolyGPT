@@ -1,10 +1,12 @@
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
+        PrintWriter writer = new PrintWriter("mon-fichier.txt", "UTF-8");
 
         //Informations sur le fichier
         System.out.println("\n --------------------------------------------------");
@@ -29,7 +31,7 @@ public class Main {
                     schollyear = scan.nextLine();
                     switch (schollyear){
                         case "3A","4A", "5A":
-                            parsingAnnee(path, name, schollyear);
+                            parsingAnnee(writer, path, name, schollyear);
                             break;
                         default:
                             System.out.println("L'année renseigner n'est pas dans les années pris en charge, merci de ressaisir l'année concerner et réessayer");
@@ -42,18 +44,18 @@ public class Main {
                     valide = true;
                     System.out.println("Quelle est la 1er année concerncer ? [3A, 4A, 5A]");
                     schollyear = scan.nextLine();
-                    parsingAnnee(path, name, schollyear);
+                    parsingAnnee(writer,path, name, schollyear);
                     System.out.println("Quelle est la 2eme année concerncer ? [3A, 4A, 5A]");
                     schollyear = scan.nextLine();
-                    parsingAnnee(path, name, schollyear);
+                    parsingAnnee(writer, path, name, schollyear);
                     System.out.println("Merci bien, nous allon maintenant traduire votre fichier.");
                     break;
                 case 3:
                     valide = true;
                     System.out.println("Merci bien, nous allon maintenant traduire votre fichier.");
-                    parsingAnnee(path, name, "3A");
-                    parsingAnnee(path, name, "4A");
-                    parsingAnnee(path, name, "5A");
+                    parsingAnnee(writer, path, name, "3A");
+                    parsingAnnee(writer, path, name, "4A");
+                    parsingAnnee(writer, path, name, "5A");
                     break;
                 default:
                     System.out.println("Chiffre en dehors de la demande, merci de ressaisir un chiffre entre 1 et 3");
@@ -61,10 +63,11 @@ public class Main {
                     years = scan.nextInt();
                     break;
             }
+            writer.close();
         }
     }
 
-    public static void parsingAnnee(String path, String name, String annee) throws IOException {
+    public static void parsingAnnee(PrintWriter writer, String path, String name, String annee) throws IOException {
         //Creation des variables
         ParserH parser = new ParserH();
         ArrayList<UE> listeUES1 ;
@@ -88,20 +91,26 @@ public class Main {
                 str2 = "S10";
                 break;
         }
-        
+
         System.out.println("\n --------------------------------------------------");
+        writer.println("L'annee "+annee+" est contistuer des semestre suivant : ");
+        writer.println("1er semestre : ");
         System.out.println("Année : "+annee);
         listeUES1 = parser.parseurMaquette(path, name,str1);
         semestre1 = new Semestre();
         semestre1.setUniteEnseignement(listeUES1);
-        semestre1.afficherSemestre();
+        semestre1.afficherSemestre(writer);
 
         System.out.println("\n --------------------------------------------------");
+        writer.println("\n --------------------------------------------------\n");
+        writer.println("2ème semestre : ");
         System.out.println("2ème semestre : ");
         listeUES2 = parser.parseurMaquette(path, name,str2);
         semestre2 = new Semestre();
         semestre2.setUniteEnseignement(listeUES2);
-        semestre2.afficherSemestre();
+        semestre2.afficherSemestre(writer);
+        writer.println("\n --------------------------------------------------\n");
         System.out.println("\n --------------------------------------------------\n");
+        writer.println("");
     }
 }

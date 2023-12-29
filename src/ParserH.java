@@ -89,7 +89,9 @@ public class ParserH {
                     switch(j){
                         case 3:
                             if(cell.getCellType() == Cell.CELL_TYPE_STRING){
-                                nomMatiere = cell.getStringCellValue();
+                                if(!cell.getStringCellValue().contains("validation")){
+                                    nomMatiere = cell.getStringCellValue();
+                                }
                             }
                             break;
                         case 4:
