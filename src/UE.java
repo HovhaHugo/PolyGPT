@@ -5,19 +5,19 @@ public class UE {
 
     private String label;
     private int nombreMatiere;
-    private double ECTS;
+    private String descriptionsEU;
+    private int ECTS;
     private List<Matiere> listMatiere;
 
 
-    public UE(String label, int nombreMatiere, double ECTS, List<Matiere> listMatiere) {
+    public UE(String label, int ECTS, List<Matiere> listMatiere) {
         this.label = label;
-        this.nombreMatiere = nombreMatiere;
         this.ECTS = ECTS;
         this.listMatiere = listMatiere;
     }
 
-    public UE(String label) {
-        this.label = label;
+    public UE() {
+
     }
 
     /**
@@ -52,11 +52,19 @@ public class UE {
         this.nombreMatiere = nombreMatiere;
     }
 
+    public String getDescriptionsEU() {
+        return descriptionsEU;
+    }
+
+    public void setDescriptionsEU(String descriptionsEU) {
+        this.descriptionsEU = descriptionsEU;
+    }
+
     /**
      * Provide the amount of ECTS in the UE (european norm)
      * @return The amount of ECTS in the UE
      */
-    public double getECTS() {
+    public int getECTS() {
         return ECTS;
     }
 
@@ -64,7 +72,7 @@ public class UE {
      * Modify the amount of ECTS in the UE
      * @param ECTS The new amount of ECTS
      */
-    public void setECTS(double ECTS) {
+    public void setECTS(int ECTS) {
         this.ECTS = ECTS;
     }
 
@@ -75,11 +83,5 @@ public class UE {
     public void setListMatiere(List<Matiere> listMatiere) {
         this.listMatiere = listMatiere;
     }
-
-    public void addMatiere(String labelMatiere){
-        Matiere nouvelleMatiere = new Matiere(labelMatiere);
-        listMatiere.add(nouvelleMatiere);
-    }
-
 
 }
