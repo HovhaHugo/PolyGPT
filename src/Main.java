@@ -92,6 +92,7 @@ public class Main {
                 break;
         }
 
+        //Todo Commenter le code qui suit.
         System.out.println("\n --------------------------------------------------");
         writer.println("L'annee "+annee+" est contistuer des semestre suivant : ");
         writer.println("1er semestre : ");
@@ -101,6 +102,7 @@ public class Main {
         semestre1.setUniteEnseignement(listeUES1);
         semestre1.afficherSemestre(writer);
 
+        //Todo Commenter le code qui suit.
         System.out.println("\n --------------------------------------------------");
         writer.println("\n --------------------------------------------------\n");
         writer.println("2ème semestre : ");
