@@ -1,7 +1,9 @@
-import java.util.ArrayList;
-
+/**
+ * Class Matiere that manage all the scholar subject for a semester.
+ */
 public class Matiere {
 
+    // Attribut.
     private String labelMatiere;
     private int heure_TD;
     private int heure_TP;
@@ -12,6 +14,18 @@ public class Matiere {
     private String Type_CT;
     private float poidMatiere;
 
+    /**
+     * Permit to create an object Matier that will store all the infos about a subject.
+     * @param labelMatiere the name of the subject
+     * @param heure_TD the amount of TD hours for the subject.
+     * @param heure_TP the amount of TP hours for the subject.
+     * @param heure_CM the amount of CM hours for the subject.
+     * @param Poid_CC the weight of the exam
+     * @param Type_CC the type of exam
+     * @param Poid_CT the weigth of the final exam
+     * @param Type_CT the type of the final exam
+     * @param poidMatiere the weight of the subject in the UE.
+     */
     public Matiere(String labelMatiere, int heure_TD, int heure_TP, int heure_CM,float Poid_CC, String Type_CC, float Poid_CT, String Type_CT, float poidMatiere) {
         this.labelMatiere = labelMatiere;
         this.heure_TD = heure_TD;

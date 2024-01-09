@@ -1,6 +1,4 @@
-import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 /**
@@ -36,7 +34,6 @@ public class Annee {
     public void setSemestre(List<Semestre> semestre) {
         this.semestre = semestre;
     }
-
 
     public void afficherAnnee(PrintWriter writer) {
         writer.println("L'annee "+this.getLabel()+" est contistuer des semestre suivant : ");

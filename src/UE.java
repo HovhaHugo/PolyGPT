@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.List;
 
 public class UE {
@@ -17,7 +16,6 @@ public class UE {
     }
 
     public UE() {
-
     }
 
     /**

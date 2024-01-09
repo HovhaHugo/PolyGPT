@@ -63,6 +63,7 @@ public class Main {
                     years = scan.nextInt();
                     break;
             }
+            System.out.println("Votre maquette à bien été transformer, veuillez la trouvez dans le dossier : ");
             writer.close();
         }
     }
@@ -91,28 +92,20 @@ public class Main {
                 str2 = "S10";
                 break;
         }
-
-        //Todo Commenter le code qui suit.
-        System.out.println("\n --------------------------------------------------");
         writer.println("L'annee "+annee+" est contistuer des semestre suivant : ");
         writer.println("1er semestre : ");
-        System.out.println("Année : "+annee);
         listeUES1 = parser.parseurMaquette(path, name,str1);
         semestre1 = new Semestre();
         semestre1.setUniteEnseignement(listeUES1);
         semestre1.afficherSemestre(writer);
 
-        //Todo Commenter le code qui suit.
-        System.out.println("\n --------------------------------------------------");
         writer.println("\n --------------------------------------------------\n");
         writer.println("2ème semestre : ");
-        System.out.println("2ème semestre : ");
         listeUES2 = parser.parseurMaquette(path, name,str2);
         semestre2 = new Semestre();
         semestre2.setUniteEnseignement(listeUES2);
         semestre2.afficherSemestre(writer);
         writer.println("\n --------------------------------------------------\n");
-        System.out.println("\n --------------------------------------------------\n");
         writer.println("");
     }
 }

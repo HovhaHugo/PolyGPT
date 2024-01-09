@@ -2,13 +2,9 @@ import java.io.File;
 import java.io.IOException;
 
 import java.io.FileInputStream;
-import java.sql.Time;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Objects;
-import java.util.Timer;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -16,21 +12,26 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ParserH {
+    /**
+     * Function that will parse an Excel sheets into information in natural language
+     * @param path The path of the Excel sheets
+     * @param name The name of the Excel sheets
+     * @param index the sheets we will translate
+     * @return An arraylist of UE that contains every UE for a semester
+     * @throws IOException
+     */
     public ArrayList<UE> parseurMaquette(String path, String name, String index) throws IOException   {
-        float now = System.nanoTime();
-
         //obtaining input bytes from a file
-        FileInputStream fis=new FileInputStream(new File(path+"/"+name+".xlsx"));
+        FileInputStream fis=new FileInputStream(path+"/"+name+".xlsx");
 
         //creating workbook instance that refers to .xls file
         XSSFWorkbook workbook = new XSSFWorkbook(fis);
 
-        //On récupére la feuille de calcules à l'index indiquer.
+        //We select the right sheets in the Excel file
         XSSFSheet ws = workbook.getSheet(index);
 
         ArrayList<UE> listeUE = new ArrayList<UE>();
         ArrayList<Matiere> listeMatieres = new ArrayList<Matiere>();
-        Iterator<Row> rowIterator = ws.iterator();
         int i = 1;
 
         UE oldUE = new UE();
@@ -85,6 +86,7 @@ public class ParserH {
                             oldUE.setDescriptionsEU(cell.getStringCellValue());
                         }
                     }
+
                     //Gestion des matières
                     switch(j){
                         case 3:
@@ -153,7 +155,6 @@ public class ParserH {
                 }
                 j++;
             }
-
             //Si on as pas de nom de matière, on l'ajoute à la liste des matières.
             if(nomMatiere != null){
                 Matiere newMatiere = new Matiere(nomMatiere,heureTD,heureTP,heureCours,CC, TypeCC, CT, TypeCT, poid);
@@ -190,8 +191,6 @@ public class ParserH {
             }
         }
         fis.close();
-        float then = System.nanoTime();
-        System.out.println(then - now);
         return listeUE;
     }
 }
