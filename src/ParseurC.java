@@ -38,13 +38,8 @@ public class ParseurC {
                     if (row != null && i > 4) {
                         XSSFCell cellUE = row.getCell(1); // Récupérer la cellule à la colonne 1
 
-                        if (cellUE != null && cellUE.getCellType() == CellType.STRING) {
-
-                            if (cellUE.getStringCellValue().equals("1 au choix")) {
-                                //System.out.print(nomUE);
-                            } else {
-                                nomUE = cellUE.getStringCellValue();
-                            }
+                        if (cellUE != null) {
+                            cellUE.getCellType();
                         }
                     }
 
@@ -52,8 +47,8 @@ public class ParseurC {
                     if (row != null && i > 4) {
                         XSSFCell cell2 = row.getCell(12); // Récupérer la cellule à la colonne 12
 
-                        if (cell2 != null && cell2.getCellType() == CellType.NUMERIC) {
-                            ECTS = cell2.getNumericCellValue(); // Récupérer le nom de l'unité d'enseignement
+                        if (cell2 != null) {
+                            cell2.getCellType();
                         }
                     }
 
@@ -72,57 +67,10 @@ public class ParseurC {
                         String typeCT = null;
                         double poidsMatierePourcent = 0;
 
-                        String idUE = unitesEnseignements.getLabel();
+                        String idUE = unitesEnseignements.get(i).getLabel();
 
-                        if (cell != null && cell.getCellType() == CellType.STRING) {
-                            nomMatiere = cell.getStringCellValue(); // Récupérer le nom de la matière
-
-                            //Switch case pour l'indice colonne
-
-                            // Ajouter la matiere à la liste
-                            XSSFCell cellCM = row.getCell(3);
-                            heureCM = cellCM.getNumericCellValue();
-                            XSSFCell cellTD = row.getCell(4);
-                            heureTD = cellTD.getNumericCellValue();
-                            XSSFCell cellTP = row.getCell(5);
-                            heureTP = cellTP.getNumericCellValue();
-                            XSSFCell cellProjet = row.getCell(6);
-                            heureProjet = cellProjet.getNumericCellValue();
-                            XSSFCell cellPoids = row.getCell(11);
-                            poidsMatiere = cellPoids.getNumericCellValue();
-                            poidsMatierePourcent = poidsMatiere * 100;
-
-
-                            XSSFCell cellPoidsCC = row.getCell(7);
-                            if (cellPoidsCC != null) {
-                                poidsCC = cellPoidsCC.getNumericCellValue();
-                            }
-
-                            XSSFCell cellTypeCC = row.getCell(8);
-                            typeCC = cellTypeCC.getStringCellValue();
-                            XSSFCell cellPoidsCT = row.getCell(9);
-                            poidsCT = cellPoidsCT.getNumericCellValue();
-                            XSSFCell cellTypeCT = row.getCell(10);
-                            typeCT = cellTypeCT.getStringCellValue();
-
-                            Matiere matiere = new Matiere(nomMatiere, heureCM, heureTD, heureTP, heureProjet, poidsCC, typeCC, poidsCT, typeCT, poidsMatierePourcent); // Supposons que les valeurs de note et de crédit sont 0 pour l'instant
-                            Matiere MATIERE = new Matiere(nomMatiere, heureCM, heureTD, heureTP, heureProjet, poidsCC, typeCC, poidsCT, typeCT, poidsMatierePourcent); // Supposons que les valeurs de note et de crédit sont 0 pour l'instant
-
-                            listMatiereOld.add(matiere);
-
-                            //System.out.println("Liste des Matières : " + listMatiereOld);
-
-                            if (matieresParUE.containsKey(idUE)) {
-                                // Si oui, ajouter la matière à la liste existante
-                                matieresParUE.get(idUE).add(MATIERE);
-                            } else {
-                                // Sinon, créer une nouvelle liste de matières pour cette UE
-                                List<Matiere> nouvellesMatieres = new ArrayList<>();
-                                nouvellesMatieres.add(MATIERE);
-                                matieresParUE.put(idUE, nouvellesMatieres);
-                            }
-
-
+                        if (cell != null) {
+                            cell.getCellType();
                         }
                     }
 
@@ -201,10 +149,10 @@ public class ParseurC {
                         List<Matiere> listMatiereNew = new ArrayList<Matiere>(listMatiereOld);
 
                         if (nomUE != nomUE) {
-                            UE uniteEnseignement = new UE(nomUE, 0, ECTS, listMatiereNew); // Supposons que les autres valeurs soient vides pour l'instant
+                            //UE uniteEnseignement = new UE(nomUE, 0, ECTS, listMatiereNew); // Supposons que les autres valeurs soient vides pour l'instant
                             listMatiereOld.clear();
 
-                            unitesEnseignements.add(uniteEnseignement);
+                            //unitesEnseignements.add(uniteEnseignement);
                         }/*
                         if (nomUENouveau.equals("SOUTIEN")) {
                             UE uniteEnseignement = new UE(nomUENouveau, 0, ECTS, listMatiereOld); // Supposons que les autres valeurs soient vides pour l'instant

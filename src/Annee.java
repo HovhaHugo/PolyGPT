@@ -1,4 +1,7 @@
+import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,7 +11,6 @@ public class Annee {
 
     private String label; // 3A, 4A, 5A
     private List<Semestre> semestre; //Une annee est une liste de deux semestres
-
     private int toiec;
 
     public String getLabel() {
@@ -31,8 +33,23 @@ public class Annee {
         return semestre;
     }
 
-    public void setSemestre(List<Semestre> semestre) {
-        this.semestre = semestre;
+    public void setSemestres(String index1, String index2, File file) throws IOException {
+        this.semestre = new ArrayList<>();
+
+        ParserH parser = new ParserH();
+        Semestre semestre1 = new Semestre();
+        semestre1.setLabel(index1);
+        long now = System.currentTimeMillis();
+        semestre1.setUniteEnseignement(parser.parseurMaquette(file, index1));
+        long then = System.currentTimeMillis();
+        float time = then - now;
+        System.out.println("Ont mets "+time+"milli sec à parser un semestre.");
+        Semestre semestre2 = new Semestre();
+        semestre2.setLabel(index2);
+        semestre2.setUniteEnseignement(parser.parseurMaquette(file, index2));
+
+        this.semestre.add(semestre1);
+        this.semestre.add(semestre2);
     }
 
     public void afficherAnnee(PrintWriter writer) {

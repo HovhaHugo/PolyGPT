@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import java.io.FileInputStream;
@@ -14,15 +15,14 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class ParserH {
     /**
      * Function that will parse an Excel sheets into information in natural language
-     * @param path The path of the Excel sheets
-     * @param name The name of the Excel sheets
+     * @param file the Excel sheets we will translate
      * @param index the sheets we will translate
      * @return An arraylist of UE that contains every UE for a semester
      * @throws IOException
      */
-    public ArrayList<UE> parseurMaquette(String path, String name, String index) throws IOException   {
+    public ArrayList<UE> parseurMaquette(File file, String index) throws IOException {
         //obtaining input bytes from a file
-        FileInputStream fis=new FileInputStream(path+"/"+name+".xlsx");
+        FileInputStream fis=new FileInputStream(file);
 
         //creating workbook instance that refers to .xls file
         XSSFWorkbook workbook = new XSSFWorkbook(fis);
