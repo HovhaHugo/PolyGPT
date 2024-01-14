@@ -32,7 +32,7 @@ public class Main {
         //Now, we will focus on the years and the numbers of sheets in the file.
         Scanner sc = new Scanner(System.in);
         System.out.println("\n --------------------------------------------------");
-        System.out.println("Le fichier concernes combien d'année ? [1,2,3]: ");
+        System.out.println("Le fichier concerne combien d'année ? [1,2,3]: ");
         int years = sc.nextInt();
         boolean between1and3 = false;
 
@@ -41,7 +41,7 @@ public class Main {
             Scanner scan = new Scanner(System.in);
             if (years > 3){
                 System.out.println("Chiffre en dehors de la demande, merci de ressaisir un chiffre entre 1 et 3");
-                System.out.println("Le fichier concernes combien d'année ? [1,2,3]: ");
+                System.out.println("Le fichier concerne combien d'année ? [1,2,3]: ");
                 years = scan.nextInt();
             }else{
                 between1and3 = true;
@@ -61,7 +61,7 @@ public class Main {
                 toeic = scan.nextInt();
                 while(!anneeValide.contains(schollyear)){
                     System.out.println("L'année renseigner n'est pas dans les années pris en charge, merci de ressaisir l'année concerner et réessayer");
-                    System.out.println("Le fichier concernes l'année ? [3A, 4A, 5A]: ");
+                    System.out.println("Le fichier concerne l'année ? [3A, 4A, 5A]: ");
                     schollyear = scan.nextLine();
                     System.out.println("Pour valider cette année, il est nécessaire d'avoir un score toeic de : ");
                     toeic = scan.nextInt();
@@ -83,13 +83,13 @@ public class Main {
                     schollyear = scan.nextLine();
                     while(!anneeValide.contains(schollyear)){
                         System.out.println("L'année renseigner n'est pas dans les années pris en charge, merci de ressaisir l'année concerner et réessayer");
-                        System.out.println("Le fichier concernes l'année ? [3A,4A,5A]: ");
+                        System.out.println("Le fichier concerne l'année ? [3A,4A,5A]: ");
                         schollyear = scan.nextLine();
                     }
                     parsingAnnee(writer, file, schollyear,0);
                     i++;
                 }
-                System.out.println("Merci bien, nous allon maintenant traduire votre fichier.");
+                System.out.println("Merci bien, nous allons maintenant traduire votre fichier.");
                 break;
             case 3:
                 for(int j = 1; j < 4; j++){
@@ -109,10 +109,10 @@ public class Main {
                         }
                     }
                 }
-                System.out.println("Merci bien, nous allon maintenant traduire votre fichier.");
+                System.out.println("Merci bien, nous allons maintenant traduire votre fichier.");
                 break;
         }
-        System.out.println("Votre maquette à bien été transformer, veuillez la trouvez dans le dossier actuelle ");
+        System.out.println("Votre maquette à bien été transformer, veuillez la trouvez dans le dossier actuel ");
         writer.close();
     }
 

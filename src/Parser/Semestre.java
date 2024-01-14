@@ -63,7 +63,7 @@ public class Semestre {
                             " | TD :" + matiere.getHeure_TD() +
                             " | TP :" + matiere.getHeure_TP() +
                             " | Projet :" + matiere.getHeure_projet() +
-                            " | Poid :" + matiere.getPoidMatieres());
+                            " | Poids :" + matiere.getPoidMatieres());
                 } else {
                     //Si on as les 2, on les affiches
                     if (matiere.getPoids_CC() != 0 && matiere.getPoids_CT() != 0) {
@@ -79,7 +79,7 @@ public class Semestre {
                                 " | Type du CC :" + matiere.getType_CC() +
                                 " | CT :" + matiere.getPoids_CT() +
                                 " | Type du CT :" + matiere.getType_CT() +
-                                " | Poid :" + matiere.getPoidMatieres());
+                                " | Poids :" + matiere.getPoidMatieres());
                     } else {
                         //Si on as des CC, on les affiches
                         if (matiere.getPoids_CC() != 0) {
@@ -93,7 +93,7 @@ public class Semestre {
                                     " | Projet :" + matiere.getHeure_projet() +
                                     " | CC :" + matiere.getPoids_CC() +
                                     " | Type du CC :" + matiere.getType_CC() +
-                                    " | Poid :" + matiere.getPoidMatieres());
+                                    " | Poids :" + matiere.getPoidMatieres());
                         }
                         //SI on as des CT, on les affiches
                         if (matiere.getPoids_CT() != 0) {
@@ -107,7 +107,7 @@ public class Semestre {
                                     " | Projet :" + matiere.getHeure_projet() +
                                     " | CT :" + matiere.getPoids_CT() +
                                     " | Type du CT :" + matiere.getType_CT() +
-                                    " | Poid :" + matiere.getPoidMatieres());
+                                    " | Poids :" + matiere.getPoidMatieres());
                         }
                     }
                 }

@@ -63,7 +63,7 @@ public class Annee {
      * @param writer The PrintWriter variable that will print everything into the new file
      */
     public void afficherAnnee(PrintWriter writer) {
-        writer.println("\nL'annee "+this.getLabel()+" est contistuer des semestre suivant : ");
+        writer.println("\nL'année "+this.getLabel()+" est constituer des semestre suivant : ");
         List<Semestre> semestreAnnee = this.getSemestre();
         for(int i = 0; i<semestreAnnee.size(); i++){
             writer.println("Lors du semestre "+semestreAnnee.get(i).getLabel()+" il y a les cours suivant : ");
