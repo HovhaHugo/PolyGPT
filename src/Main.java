@@ -20,7 +20,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         //Here it's the part were we create the scanner (for later) and create the file we will write on.
-        PrintWriter writer = new PrintWriter("mon-fichier.txt", StandardCharsets.UTF_8);
+        PrintWriter writer = new PrintWriter("nouvelleMaquette.txt", StandardCharsets.UTF_8);
         writer.println("Peut tu me faire un fichier json de question/réponse pour les données suivante ? \n \n");
 
         System.out.println("\n --------------------------------------------------");

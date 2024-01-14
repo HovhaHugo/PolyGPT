@@ -70,7 +70,7 @@ public class Annee {
             semestreAnnee.get(i).afficherSemestre(writer);
             writer.println("");
         }
-        writer.println("Enfin, pour valider l'année, il est nécessaire d'avoir le niveau de TOEIC de "+this.getToiec());
+        writer.println("Enfin, pour valider l'année, il est nécessaire d'avoir le niveau de TOEIC de "+this.getToiec()+"\n");
     }
 
 }

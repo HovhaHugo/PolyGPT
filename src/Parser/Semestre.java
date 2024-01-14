@@ -35,13 +35,13 @@ public class Semestre {
         for(int u =0; u < this.uniteEnseignement.size(); u++) {
             //Si un EU est un UE, on affiche les ECTS, sinon non
             if(Objects.equals(this.uniteEnseignement.get(u).getLabel().substring(0,2), "UE")){
-                writer.println("L'UE n°" + u + " est l'UE de : " + this.uniteEnseignement.get(u).getLabel()+" | ECTS : "
+                writer.println("\nL'UE n°" + u + " est l'UE de : " + this.uniteEnseignement.get(u).getLabel()+" | ECTS : "
                         +this.uniteEnseignement.get(u).getECTS());
             }else{
                 if(Objects.equals(this.uniteEnseignement.get(u).getLabel().substring(0,2), "SO")) {
-                    writer.println("Une possibilité est le : " + this.uniteEnseignement.get(u).getLabel());
+                    writer.println("\nUne possibilité est le : " + this.uniteEnseignement.get(u).getLabel());
                 } else if (Objects.equals(this.uniteEnseignement.get(u).getLabel().substring(0,2), "ST")) {
-                    writer.println("Il est aussi possible de faire un : " + this.uniteEnseignement.get(u).getLabel());
+                    writer.println("\nIl est aussi possible de faire un : " + this.uniteEnseignement.get(u).getLabel());
                 }
             }
 
