@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/PolyGPT.iml" filepath="$PROJECT_DIR$/PolyGPT.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DecryptExcel.iml" filepath="$PROJECT_DIR$/DecryptExcel.iml" />
     </modules>
   </component>
 </project>

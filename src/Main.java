@@ -1,44 +1,36 @@
+
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
-import java.sql.Time;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Timer;
 
+import static Parser.Parser.parsingAnnee;
+
+/**
+ * Main class that will be used to make the programme works
+ */
 public class Main {
+    static ArrayList<String> anneeValide = new ArrayList<>(){{
+        add("3A");
+        add("4A");
+        add("5A");
+    }};
     public static void main(String[] args) throws IOException {
-        //We create the variable for the all code that will help us to identify if everything is right
-        ArrayList<String> anneeValide = new ArrayList<>();
-        anneeValide.add("3A");
-        anneeValide.add("4A");
-        anneeValide.add("5A");
 
         //Here it's the part were we create the scanner (for later) and create the file we will write on.
-        Scanner sc = new Scanner(System.in);
         PrintWriter writer = new PrintWriter("mon-fichier.txt", StandardCharsets.UTF_8);
         writer.println("Peut tu me faire un fichier json de question/réponse pour les données suivante ? \n \n");
 
-        //We try to see if the file exist and we bring it.
         System.out.println("\n --------------------------------------------------");
-        System.out.println("Bienvenue dans Descpryt'Excel, veuillez saisir le chemin d'accès à la maquette : ");
-        String path = sc.nextLine();
-        System.out.println("Veuillez aussi saisir le nom du fichier : ");
-        String name = sc.nextLine();
-        //If the file doesn't exist we send an error message
-        File file = new File(path+"/"+name+".xlsx");
-        while(!file.isFile()){
-            System.out.println("Le fichier n'existe pas, vous devez vous être tromper de fichier ou de dossier, veuillez recommencer.");
-            System.out.println("Veuillez saisir chemin d'accès à la maquette : ");
-            path = sc.nextLine();
-            System.out.println("Veuillez aussi saisir le nom du fichier : ");
-            name = sc.nextLine();
-            file = new File(path+"/"+name);
-        }
+        System.out.println("Bienvenue dans Descpryt'Excel, votre logiciel de traduction de fichier Excel");
+
+        //We try to see if the Excel file exist.
+        File file = verificationFileExcel();
 
         //Now, we will focus on the years and the numbers of sheets in the file.
+        Scanner sc = new Scanner(System.in);
         System.out.println("\n --------------------------------------------------");
         System.out.println("Le fichier concernes combien d'année ? [1,2,3]: ");
         int years = sc.nextInt();
@@ -58,7 +50,7 @@ public class Main {
 
         String schollyear;
         int toeic;
-        //We create another scanner because the old one might bug sometime.
+        //We create another scanner.
         Scanner scan = new Scanner(System.in);
         //Now that the number of years is between 1 and 3, we try to parse the year.
         switch (years) {
@@ -102,9 +94,9 @@ public class Main {
             case 3:
                 for(int j = 1; j < 4; j++){
                     if(j == 1){
-                            System.out.println("Pour valider la 1ere année, il est nécessaire d'avoir un score toeic de : ");
-                            toeic = scan.nextInt();
-                            parsingAnnee(writer, file, "3A", toeic);
+                        System.out.println("Pour valider la 1ere année, il est nécessaire d'avoir un score toeic de : ");
+                        toeic = scan.nextInt();
+                        parsingAnnee(writer, file, "3A", toeic);
                     }else{
                         if(j == 2){
                             System.out.println("Pour valider la " + j + "eme année, il est nécessaire d'avoir un score toeic de : ");
@@ -124,37 +116,22 @@ public class Main {
         writer.close();
     }
 
-    public static void parsingAnnee(PrintWriter writer, File file, String strAnnee, int toeic) throws IOException {
-        long now = System.currentTimeMillis();
-
-        //Creation des variables
-        String str1 = null;
-        String str2 = null;
-
-        switch(strAnnee){
-            case "3A":
-                str1 = "S5";
-                str2 = "S6";
-                break;
-            case "4A":
-                str1 = "S7";
-                str2 = "S8";
-                break;
-            case "5A":
-                str1 = "S9";
-                str2 = "S10";
-                break;
+    /**
+     * Function that check if an Excel file exist
+     * @return The Excel file
+     */
+    public static File verificationFileExcel(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Veuillez saisir le chemin d'accès à la maquette ainsi que le nom du fichier : ");
+        String pahtFile = sc.nextLine();
+        //If the file doesn't exist we send an error message
+        File file = new File(pahtFile+".xlsx");
+        while(!file.isFile()){
+            System.out.println("Le fichier n'existe pas, vous devez vous être tromper de fichier ou de dossier, veuillez recommencer.");
+            System.out.println("Veuillez saisir chemin d'accès à la maquette avec le nom du fichier : ");
+            pahtFile = sc.nextLine();
+            file = new File(pahtFile+".xlsx");
         }
-        Annee annee = new Annee();
-        annee.setSemestres(str1, str2, file);
-        annee.setLabel(strAnnee);
-        annee.setToiec(toeic);
-
-        annee.afficherAnnee(writer);
-
-        long then = System.currentTimeMillis();
-
-        float time = then - now;
-        System.out.println("Ont mets "+time+"milli sec à faire le paring de la maquette");
+        return file;
     }
 }

@@ -1,12 +1,15 @@
+package Parser;
+
 import java.io.PrintWriter;
 import java.util.*;
 
 /**
- *
+ * Class Semestre
+ * contain all the information of a semester (the name and UE's)
  */
 public class Semestre {
-    private String label; //nom : S5,S6,...
-    private List<UE> uniteEnseignement; //Un semestre est compose d'unite d'enseignement called 'UE'
+    private String label;
+    private List<UE> uniteEnseignement;
 
     public String getLabel() {
         return label;
@@ -24,9 +27,13 @@ public class Semestre {
         this.uniteEnseignement = uniteEnseignement;
     }
 
+    /**
+     * Show the list of UE and their following school subject.
+     * @param writer The PrintWriter variable that will print everything in the new file.
+     */
     public void afficherSemestre(PrintWriter writer) {
         for(int u =0; u < this.uniteEnseignement.size(); u++) {
-            //SI un EU est un UE, on affiche les ECTS, sinon non
+            //Si un EU est un UE, on affiche les ECTS, sinon non
             if(Objects.equals(this.uniteEnseignement.get(u).getLabel().substring(0,2), "UE")){
                 writer.println("L'UE n°" + u + " est l'UE de : " + this.uniteEnseignement.get(u).getLabel()+" | ECTS : "
                         +this.uniteEnseignement.get(u).getECTS());
@@ -55,7 +62,8 @@ public class Semestre {
                     writer.println("| CM :" + matiere.getHeure_CM() +
                             " | TD :" + matiere.getHeure_TD() +
                             " | TP :" + matiere.getHeure_TP() +
-                            " | Poid :" + matiere.getPoidMatiere());
+                            " | Projet :" + matiere.getHeure_projet() +
+                            " | Poid :" + matiere.getPoidMatieres());
                 } else {
                     //Si on as les 2, on les affiches
                     if (matiere.getPoids_CC() != 0 && matiere.getPoids_CT() != 0) {
@@ -66,11 +74,12 @@ public class Semestre {
                         writer.println("| CM :" + matiere.getHeure_CM() +
                                 " | TD :" + matiere.getHeure_TD() +
                                 " | TP :" + matiere.getHeure_TP() +
+                                " | Projet :" + matiere.getHeure_projet() +
                                 " | CC :" + matiere.getPoids_CC() +
                                 " | Type du CC :" + matiere.getType_CC() +
                                 " | CT :" + matiere.getPoids_CT() +
                                 " | Type du CT :" + matiere.getType_CT() +
-                                " | Poid :" + matiere.getPoidMatiere());
+                                " | Poid :" + matiere.getPoidMatieres());
                     } else {
                         //Si on as des CC, on les affiches
                         if (matiere.getPoids_CC() != 0) {
@@ -81,9 +90,10 @@ public class Semestre {
                             writer.println("| CM :" + matiere.getHeure_CM() +
                                     " | TD :" + matiere.getHeure_TD() +
                                     " | TP :" + matiere.getHeure_TP() +
+                                    " | Projet :" + matiere.getHeure_projet() +
                                     " | CC :" + matiere.getPoids_CC() +
                                     " | Type du CC :" + matiere.getType_CC() +
-                                    " | Poid :" + matiere.getPoidMatiere());
+                                    " | Poid :" + matiere.getPoidMatieres());
                         }
                         //SI on as des CT, on les affiches
                         if (matiere.getPoids_CT() != 0) {
@@ -94,9 +104,10 @@ public class Semestre {
                             writer.println("| CM :" + matiere.getHeure_CM() +
                                     " | TD :" + matiere.getHeure_TD() +
                                     " | TP :" + matiere.getHeure_TP() +
+                                    " | Projet :" + matiere.getHeure_projet() +
                                     " | CT :" + matiere.getPoids_CT() +
                                     " | Type du CT :" + matiere.getType_CT() +
-                                    " | Poid :" + matiere.getPoidMatiere());
+                                    " | Poid :" + matiere.getPoidMatieres());
                         }
                     }
                 }
