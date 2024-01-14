@@ -112,7 +112,7 @@ public class Main {
                 System.out.println("Merci bien, nous allon maintenant traduire votre fichier.");
                 break;
         }
-        System.out.println("Votre maquette à bien été transformer, veuillez la trouvez dans le dossier : ");
+        System.out.println("Votre maquette à bien été transformer, veuillez la trouvez dans le dossier actuelle ");
         writer.close();
     }
 
